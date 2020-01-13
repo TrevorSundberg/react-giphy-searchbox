@@ -45,6 +45,7 @@ type Props = {
   rating: string,
   searchFormClassName: string,
   searchPlaceholder: string,
+  urlKind: string,
   wrapperClassName: string,
 }
 
@@ -65,6 +66,7 @@ const ReactGiphySearchBox = ({
   rating,
   searchFormClassName,
   searchPlaceholder,
+  urlKind,
   wrapperClassName,
 }: Props) => {
   const { query, handleInputChange, handleSubmit } = useSearchForm()
@@ -72,7 +74,7 @@ const ReactGiphySearchBox = ({
 
   const apiEndpoint = query ? 'search' : 'trending'
   const apiUrl = offset =>
-    `https://api.giphy.com/v1/gifs/${apiEndpoint}?api_key=${apiKey}&limit=${gifPerPage}&rating=${rating}&offset=${offset}&q=${query}`
+    `https://api.giphy.com/v1/${urlKind}/${apiEndpoint}?api_key=${apiKey}&limit=${gifPerPage}&rating=${rating}&offset=${offset}&q=${query}`
 
   const [{ data, loading, error, lastPage }, fetch] = useApi()
 
@@ -178,6 +180,7 @@ ReactGiphySearchBox.defaultProps = {
   rating: 'g',
   searchFormClassName: '',
   wrapperClassName: '',
+  urlKind: 'gifs',
   searchPlaceholder: 'Search for GIFs',
 }
 
